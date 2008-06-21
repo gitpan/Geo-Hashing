@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Hashing.
 
+0.02  Documentation updates
+      Fix 30w rule processing (limit by date)
+
 0.01  Wed Jun 18 15:52:36 2008
 	- original version; created by h2xs 1.23 with options
 		-X Geo::Hashing

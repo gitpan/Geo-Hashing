@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -150,8 +150,17 @@ sub djia {
       croak "Invalid DJIA ($djia)!";
     }
   } elsif ($self->source) {
-    $self->_log("Requesting", $self->source, "->DJIA(". $self->date .")");
-    $self->{_djia} = $self->_get_djia($self->date);
+    my $date = $self->date;
+    if ($self->use_30w_rule) {
+      require Time::Local;
+      my ($y, $m, $d) = split /-/, $self->date;
+      my $time = Time::Local::timelocal(0, 0, 0, $d, $m-1, $y);
+      ($d, $m, $y) = (localtime($time - 24*60*60))[3,4,5];
+      $m++; $y += 1900;
+      $date = sprintf("%04d-%02d-%02d", $y, $m, $d);
+    }
+    $self->_log("Requesting", $self->source, "->DJIA($date)");
+    $self->{_djia} = $self->_get_djia($date);
   } else {
     $self->_log("No source set, can't automatically get DJIA");
     return undef;
@@ -204,11 +213,23 @@ sub use_30w_rule {
     $self->_update();
   } elsif (defined $self->lon) {
     if ($self->lon > -30) {
-      $self->{_30w} = 1;
+      if (not $self->date) {
+        $self->{_30w} = 1;
+      } else {
+        my ($y, $m, $d) = split /-/, $self->date;
+        if ($y > 2008) {
+          $self->{_30w} = 1;
+        } elsif ($y == 2008 and $m > 5) {
+          $self->{_30w} = 1;
+        } elsif ($y == 2008 and $m == 5 and $d >= 27) {
+          $self->{_30w} = 1;
+        } else {
+          $self->{_30w} = 0;
+        }
+      }
     } else {
       $self->{_30w} = 0;
     }
-    $self->_update();
   }
 
   return $self->{_30w};

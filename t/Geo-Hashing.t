@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 23; # 'no_plan'; #
+use Test::More tests => 24; # 'no_plan'; #
 BEGIN { use_ok('Geo::Hashing') };
 
 #########################
@@ -29,16 +29,19 @@ is($g->date, "2008-05-25", "Constructor date indeed set it");
 is($g->lat, 37.94177485284444, "Correct dlat returned");
 is($g->lon, -122.18287359766967, "Correct dlon returned");
 
-$g->date("2008-05-20");
-is($g->lat, 37.630990585392018, "Correct lat for 2008-05-20");
-is($g->lon, -122.6189459820912757, "Correct lon for 2008-05-20");
-is($g->use_30w_rule, 0, "30W is currently disabled");
-is($g->lon(0), 0.6189459820912757, "Correct lon for 30W2008-05-20");
-is($g->use_30w_rule, 1, "30W is currently enabled");
-is($g->lat, 37.630990585392018, "Correct lat for 30W2008-05-20");
+$g->date("2008-05-30");
+is($g->lat, 37.8531025811716, "Correct lat for 2008-05-30");
+is($g->lon, -122.244602195936, "Correct lon for 2008-05-30");
+is($g->use_30w_rule, 0, "30W is corrected disabled");
+is($g->lon(0), 0.704583434704204, "Correct lon for 30W2008-05-30");
+is($g->use_30w_rule, 1, "30W is corrected enabled");
+is($g->lat, 37.3227205387098, "Correct lat for 30W2008-05-30");
 
-is($g->lat("-0"), -0.630990585392018,  "Setting lat to -0 sticks");
-is($g->lon("-0"), -0.6189459820912757, "Setting lon to -0 sticks");
+is($g->lat("-0"), -0.322720538709827,  "Setting lat to -0 sticks");
+is($g->lon("-0"), -0.704583434704204, "Setting lon to -0 sticks");
+
+$g->date("2008-05-26");
+is($g->use_30w_rule, 0, "30W is corrected disabled before 2008-05-27");
 
 { 
   $g = Geo::Hashing->new(debug => $debug, source => 'random');
