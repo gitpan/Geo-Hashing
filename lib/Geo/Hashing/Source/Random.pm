@@ -1,3 +1,8 @@
+#!/usr/bin/perl -w
+#
+# $Id: Random.pm 255 2008-06-21 03:48:46Z dan $
+#
+
 package Geo::Hashing::Source::Random;
 
 use strict;

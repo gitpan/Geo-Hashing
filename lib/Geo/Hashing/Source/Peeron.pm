@@ -1,3 +1,8 @@
+#!/usr/bin/perl -w
+#
+# $Id: Peeron.pm 255 2008-06-21 03:48:46Z dan $
+#
+
 package Geo::Hashing::Source::Peeron;
 
 use strict;

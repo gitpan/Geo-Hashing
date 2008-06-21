@@ -1,7 +1,6 @@
 #!/usr/bin/perl -w
 #
-# Dan Boger (zigdon@gmail.com)
-# 2008-05-21
+# $Id: sample.pl 255 2008-06-21 03:48:46Z dan $
 
 use strict;
 use Geo::Hashing;

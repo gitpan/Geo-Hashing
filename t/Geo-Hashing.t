@@ -1,17 +1,11 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl Geo-Hashing.t'
-
-#########################
-
-# change 'tests => 1' to 'tests => last_test_to_print';
+#!/usr/bin/perl -w
+# 
+# $Id: Geo-Hashing.t 255 2008-06-21 03:48:46Z dan $
 
 use Test::More tests => 24; # 'no_plan'; #
 BEGIN { use_ok('Geo::Hashing') };
 
 #########################
-
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
 
 my $debug = 1;
 my $g = Geo::Hashing->new(debug => $debug);
@@ -52,3 +46,5 @@ is($g->use_30w_rule, 0, "30W is corrected disabled before 2008-05-27");
   like($djia2, qr/^\d+(?:\.\d+)?$/, "Second random DJIA looks right");
   isnt($djia1, $djia2, "The two random DJIAs are different");
 }
+
+
