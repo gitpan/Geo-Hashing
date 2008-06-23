@@ -10,7 +10,7 @@ use warnings;
 use Carp;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 NAME
 
