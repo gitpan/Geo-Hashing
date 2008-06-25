@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Geo-Hashing
-version:             0.04
+version:             0.05
 abstract:            Perl library to calculate Geohashing points
 license:             ~
 author:              

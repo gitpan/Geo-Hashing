@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Hashing.
 
+0.05  Tue Jun 24 2008
+      Remove silly requirement for perl 5.10.0
+
 0.04  Mon Jun 23 2008
       Fix tests so that they use a fixed percision
 
@@ -14,4 +17,4 @@ Revision history for Perl extension Geo::Hashing.
 		-X Geo::Hashing
 
 -- 
-   $Id: Changes 256 2008-06-21 19:23:06Z dan $
+   $Id: Changes 257 2008-06-25 02:02:19Z dan $

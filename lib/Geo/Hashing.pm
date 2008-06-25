@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-# $Id: Hashing.pm 255 2008-06-21 03:48:46Z dan $
+# $Id: Hashing.pm 257 2008-06-25 02:02:19Z dan $
 #
 
 package Geo::Hashing;
@@ -10,7 +10,7 @@ use warnings;
 use Carp;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 

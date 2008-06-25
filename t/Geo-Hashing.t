@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # 
-# $Id: Geo-Hashing.t 255 2008-06-21 03:48:46Z dan $
+# $Id: Geo-Hashing.t 257 2008-06-25 02:02:19Z dan $
 
 use Test::More tests => 24; # 'no_plan'; #
 BEGIN { use_ok('Geo::Hashing') };
