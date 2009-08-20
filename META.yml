@@ -1,11 +1,11 @@
 --- #YAML:1.0
 name:                Geo-Hashing
-version:             0.05
+version:             0.06
 abstract:            Perl library to calculate Geohashing points
 license:             ~
 author:              
     - Dan Boger <zigdon@gmail.com>
-generated_by:        ExtUtils::MakeMaker version 6.42
+generated_by:        ExtUtils::MakeMaker version 6.44
 distribution_type:   module
 requires:     
     Digest::MD5:                   0.1

@@ -2,7 +2,8 @@
 # 
 # $Id: Geo-Hashing.t 257 2008-06-25 02:02:19Z dan $
 
-use Test::More tests => 24; # 'no_plan'; #
+use Test::More tests => 27; # 'no_plan'; #
+use strict;
 BEGIN { use_ok('Geo::Hashing') };
 
 #########################
@@ -38,14 +39,21 @@ $g->date("2008-05-26");
 is($g->use_30w_rule, 0, "30W is corrected disabled before 2008-05-27");
 
 { 
-  $g = Geo::Hashing->new(debug => $debug, source => 'random');
-  is($g->source, 'Geo::Hashing::Source::Random', "Presetting the source to random works");
-  my $djia1 = $g->djia;
+  my $g2 = Geo::Hashing->new(debug => $debug, source => 'random');
+  is($g2->source, 'Geo::Hashing::Source::Random', "Presetting the source to random works");
+  my $djia1 = $g2->djia;
   like($djia1, qr/^\d+(?:\.\d+)?$/, "Random DJIA looks right");
-  my $djia2 = $g->djia;
+  my $djia2 = $g2->djia;
   like($djia2, qr/^\d+(?:\.\d+)?$/, "Second random DJIA looks right");
   isnt($djia1, $djia2, "The two random DJIAs are different");
 }
+
+# test that missing data is reported properly 
+my @next_week = localtime(time + 7*24*60*60);
+$g->date(sprintf("%04d-%02d-%02d", $next_week[5]+1900, $next_week[4]+1, $next_week[3])); 
+is($g->djia, undef, "Missing data returns undef DJOA");
+is($g->lat, undef, "Missing data returns undef lat");
+is($g->lon, undef, "Missing data returns undef lon");
 
 sub f {
   return int(1e8*$_[0]);

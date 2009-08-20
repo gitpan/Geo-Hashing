@@ -10,7 +10,7 @@ use warnings;
 use Carp;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 NAME
 
@@ -85,6 +85,8 @@ sub lat {
     }
   }
 
+  return undef unless defined $self->{_dlat} and defined $self->{_dlon};
+
   return $self->{_lat} eq "-0" || $self->{_lat} < 0 ? 
                      $self->{_lat} - $self->{_dlat} : 
                      $self->{_lat} + $self->{_dlat};
@@ -108,6 +110,8 @@ sub lon {
       croak "Invalid longitude ($lon)!";
     }
   }
+
+  return undef unless defined $self->{_dlat} and defined $self->{_dlon};
 
   return $self->{_lon} eq "-0" || $self->{_lon} < 0 ? 
                      $self->{_lon} - $self->{_dlon} : 
@@ -141,7 +145,7 @@ sub date {
 
 Set or get the Dow Jones Industrial Average used for the calculation.  If not
 set, it will be automatically retrieved depending on the value of
-$self->source.
+$self->source.  If the data cannot be retrieved, undef will be returned.
 =cut
 
 sub djia {
@@ -266,6 +270,7 @@ sub _update {
   my $djia = $self->djia;
   unless (defined $djia) {
     $self->_log("Failed to get DJIA");
+    $self->{_dlat} = $self->{_dlon} = undef;
     return undef;
   }
 
